@@ -1,0 +1,16 @@
+{
+  "name": "@cm/auth",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "devDependencies": {
+    "@cm/prettier": "workspace:*",
+    "@cm/eslint-config": "workspace:*",
+    "@cm/tsconfig": "workspace:*"
+  },
+  "eslintConfig": {
+    "extends": ["@cm/eslint-config/library"]
+  },
+  "prettier": "@cm/prettier"
+}
