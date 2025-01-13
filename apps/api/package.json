@@ -1,0 +1,25 @@
+{
+  "name": "@cm/api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@cm/auth": "workspace:*",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@cm/eslint-config": "workspace:*",
+    "@cm/prettier": "workspace:*",
+    "@cm/tsconfig": "workspace:*",
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2"
+  },
+  "prettier": "@cm/prettier",
+  "eslintConfig": {
+    "extends": [
+      "@cm/eslint-config/node"
+    ]
+  }
+}
