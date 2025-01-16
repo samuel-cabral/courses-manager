@@ -10,4 +10,14 @@ export class PrismaCoursesRepository implements CoursesRepository {
 
     return course
   }
+
+  async findMany() {
+    const courses = await prisma.course.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+
+    return courses
+  }
 }
