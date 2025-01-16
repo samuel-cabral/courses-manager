@@ -1,5 +1,6 @@
 import { compare } from 'bcryptjs'
 
+import { UnauthorizedError } from '@/http/routes/_errors/unauthorized-error'
 import { UsersRepository } from '@/repositories/users-repository'
 
 interface AuthenticateUseCaseRequest {
@@ -16,13 +17,13 @@ export class AuthenticateUseCase {
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
-      throw new Error('Invalid credentials')
+      throw new UnauthorizedError('Invalid credentials.')
     }
 
     const doesPasswordMatch = await compare(password, user.passwordHash)
 
     if (!doesPasswordMatch) {
-      throw new Error('Invalid credentials')
+      throw new UnauthorizedError('Invalid credentials.')
     }
 
     return {

@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from '@/http/routes/_errors/resource-not-found-error'
 import { UsersRepository } from '@/repositories/users-repository'
 
 interface GetUserUseCaseRequest {
@@ -13,7 +14,7 @@ export class GetUserUseCase {
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {
-      throw new Error('User not found')
+      throw new ResourceNotFoundError('User not found.')
     }
 
     return {

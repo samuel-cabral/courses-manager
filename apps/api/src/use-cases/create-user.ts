@@ -1,5 +1,6 @@
 import { hash } from 'bcryptjs'
 
+import { ConflictError } from '@/http/routes/_errors/conflict-error'
 import { UsersRepository } from '@/repositories/users-repository'
 
 interface CreateUserUseCaseRequest {
@@ -17,7 +18,7 @@ export class CreateUserUseCase {
     const userWithSameEmail = await this.usersRepository.findByEmail(email)
 
     if (userWithSameEmail) {
-      throw new Error('Email already exists')
+      throw new ConflictError('Email already exists.')
     }
 
     const passwordHash = await hash(password, 6)

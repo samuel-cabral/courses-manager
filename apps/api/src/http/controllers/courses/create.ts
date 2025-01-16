@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
+import { BadRequestError } from '@/http/routes/_errors/bad-request-error'
 import { PrismaCoursesRepository } from '@/repositories/prisma/prisma-courses-repository'
 import { CreateCourseUseCase } from '@/use-cases/create-course'
 
@@ -11,11 +12,11 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     hours: z.number().min(1),
   })
 
-  const { title, description, hours } = createCourseBodySchema.parse(
-    request.body,
-  )
-
   try {
+    const { title, description, hours } = createCourseBodySchema.parse(
+      request.body,
+    )
+
     const coursesRepository = new PrismaCoursesRepository()
     const createCourseUseCase = new CreateCourseUseCase(coursesRepository)
 
@@ -27,8 +28,8 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 
     return reply.status(201).send({ course })
   } catch (err) {
-    if (err instanceof Error) {
-      return reply.status(400).send({ message: err.message })
+    if (err instanceof z.ZodError) {
+      throw new BadRequestError('Validation error.')
     }
 
     throw err
