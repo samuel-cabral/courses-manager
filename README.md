@@ -24,7 +24,7 @@ The API is built with the following technologies:
 ### Endpoints
 
 - [x] `POST /users`: Create a new user with name, email, password (hashed) and register created at datetime.
-- [ ] `GET /users/:id`: Get a user by id.
+- [x] `GET /users/:id`: Get a user by id.
 - [ ] `POST /courses`: Create a new course with title, description, start date, end date, and created at datetime.
 - [ ] `GET /courses`: Get all courses including the created at datetime.
 - [ ] `POST /enrollment`: Enrolls a user in a course, recording the date and time of the operation.
