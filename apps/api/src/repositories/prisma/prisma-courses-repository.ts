@@ -20,4 +20,12 @@ export class PrismaCoursesRepository implements CoursesRepository {
 
     return courses
   }
+
+  async findById(id: string) {
+    const course = await prisma.course.findUnique({
+      where: { id },
+    })
+
+    return course
+  }
 }

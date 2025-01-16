@@ -15,4 +15,5 @@ export interface Course {
 export interface CoursesRepository {
   create(data: CreateCourseDTO): Promise<Course>
   findMany(): Promise<Course[]>
+  findById(id: string): Promise<Course | null>
 }
