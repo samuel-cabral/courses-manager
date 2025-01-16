@@ -30,6 +30,20 @@ The API is built with the following technologies:
 - `POST /enrollment`: Enrolls a user in a course, recording the date and time of the operation.
 - `GET /enrollment/:id`: Lists the courses of a user (student), showing the enrollment dates adjusted to the client's timezone.
 
+## Database
+
+- Postgres
+
+### Schema
+
+- Users: id, name, email, password, created_at
+- Courses: id, title, description, hours, created_at
+- Enrollments: id, user_id, course_id, enrolled_at
+
+### Authentication
+
+- JWT
+
 ## Getting Started
 
 To get started, run the following command:
