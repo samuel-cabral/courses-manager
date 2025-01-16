@@ -18,10 +18,14 @@
     "@cm/eslint-config": "workspace:*",
     "@cm/prettier": "workspace:*",
     "@cm/tsconfig": "workspace:*",
+    "@faker-js/faker": "^9.4.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.10.5",
     "prisma": "^6.2.1",
     "tsx": "^4.19.2"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "prettier": "@cm/prettier",
   "eslintConfig": {
