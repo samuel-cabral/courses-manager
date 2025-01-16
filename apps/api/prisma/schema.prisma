@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  avatarUrl    String?  @map("avatar_url")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  tokens      Token[]
+  enrollments Enrollment[]
+
+  @@map("users")
+}
+
+enum TokenType {
+  PASSWORD_RECOVERY
+}
+
+model Token {
+  id   String    @id @default(uuid())
+  type TokenType
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("tokens")
+}
+
+model Course {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  hours       Int
+  createdAt   DateTime     @default(now()) @map("created_at")
+  Enrollment  Enrollment[]
+
+  @@map("courses")
+}
+
+model Enrollment {
+  id         String   @id @default(uuid())
+  userId     String
+  courseId   String
+  enrolledAt DateTime @default(now()) @map("enrolled_at")
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("enrollments")
+}
