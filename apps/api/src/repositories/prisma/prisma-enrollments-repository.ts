@@ -24,4 +24,20 @@ export class PrismaEnrollmentsRepository implements EnrollmentsRepository {
 
     return enrollment
   }
+
+  async findManyByUserId(userId: string) {
+    const enrollmentsWithCourse = await prisma.enrollment.findMany({
+      where: {
+        userId,
+      },
+      include: {
+        course: true,
+      },
+      orderBy: {
+        enrolledAt: 'desc',
+      },
+    })
+
+    return enrollmentsWithCourse
+  }
 }
