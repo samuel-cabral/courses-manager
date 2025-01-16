@@ -25,7 +25,7 @@ The API is built with the following technologies:
 
 - [x] `POST /users`: Create a new user with name, email, password (hashed) and register created at datetime.
 - [x] `GET /users/:id`: Get a user by id.
-- [ ] `POST /courses`: Create a new course with title, description, start date, end date, and created at datetime.
+- [x] `POST /courses`: Create a new course with title, description, start date, end date, and created at datetime.
 - [ ] `GET /courses`: Get all courses including the created at datetime.
 - [ ] `POST /enrollment`: Enrolls a user in a course, recording the date and time of the operation.
 - [ ] `GET /enrollment/:id`: Lists the courses of a user (student), showing the enrollment dates adjusted to the client's timezone.
