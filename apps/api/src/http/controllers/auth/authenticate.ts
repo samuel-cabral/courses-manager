@@ -28,11 +28,10 @@ export async function authenticate(
 
     const token = await reply.jwtSign(
       {
-        role: 'user',
+        sub: user.id,
       },
       {
         sign: {
-          sub: user.id,
           expiresIn: '7d',
         },
       },

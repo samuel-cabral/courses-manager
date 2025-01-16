@@ -10,10 +10,9 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
+import { authRoutes } from './plugins/auth-routes'
 import { authenticateWithPassword } from './routes/auth/authenticate-with-passord'
 import { createUser } from './routes/auth/create-user'
-import { createCourse } from './routes/courses/create'
-import { getUser } from './routes/users/get-user'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -50,10 +49,12 @@ app.register(fastifyJwt, {
 
 app.register(fastifyCors)
 
+// Rotas públicas
 app.register(createUser)
 app.register(authenticateWithPassword)
-app.register(getUser)
-app.register(createCourse)
+
+// Rotas autenticadas
+app.register(authRoutes)
 
 app.listen({ port: 3333 }).then(() => {
   console.log('HTTP server running!')
