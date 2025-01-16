@@ -2,6 +2,8 @@ import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
+import { create } from '@/http/controllers/users/create'
+
 export async function createUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/users',
@@ -14,12 +16,6 @@ export async function createUser(app: FastifyInstance) {
         }),
       },
     },
-    async (request, reply) => {
-      const { name, email, password } = request.body
-
-      console.log(name, email, password)
-
-      return reply.status(201).send('User created')
-    },
+    create,
   )
 }
