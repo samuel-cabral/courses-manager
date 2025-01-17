@@ -5,6 +5,7 @@
 This monorepo is a course management system built with the following technologies:
 
 ### Frontend
+
 - Next.js
 - Tailwind CSS
 - Shadcn UI
@@ -12,6 +13,7 @@ This monorepo is a course management system built with the following technologie
 - React
 
 ### API
+
 - Node.js
 - Prisma
 - Zod
@@ -21,6 +23,7 @@ This monorepo is a course management system built with the following technologie
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v22 or higher)
 - pnpm package manager
 - Docker
