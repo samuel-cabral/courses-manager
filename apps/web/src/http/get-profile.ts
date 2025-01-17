@@ -1,16 +1,17 @@
 import { api } from './api-client'
 
+interface User {
+  id: string
+  name: string
+  email: string
+  createdAt: string
+}
+
 interface GetProfileResponse {
-  user: {
-    id: string
-    name: string | null
-    email: string
-    avatarUrl: string | null
-  }
+  user: User
 }
 
 export async function getProfile() {
-  const result = await api.get('users/me').json<GetProfileResponse>()
-
-  return result
+  const response = await api.get('profile').json<GetProfileResponse>()
+  return response
 }
