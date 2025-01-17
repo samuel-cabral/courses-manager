@@ -1,18 +1,9 @@
-import 'dayjs/locale/pt-br'
-
-import dayjs from 'dayjs'
-import timezone from 'dayjs/plugin/timezone'
-import utc from 'dayjs/plugin/utc'
-
+import { DateFormatter } from '@/components/date-formatter'
 import { getEnrollments } from '@/http/get-enrollments'
 import { getUsers } from '@/http/get-users'
 
-dayjs.extend(utc)
-dayjs.extend(timezone)
-
 export default async function Home() {
   const { users } = await getUsers()
-  const clientTimezone = dayjs.tz.guess()
 
   const usersWithEnrollments = await Promise.all(
     users.map(async (user) => {
@@ -29,9 +20,6 @@ export default async function Home() {
           <p className="text-sm text-muted-foreground">
             Lista de usuários cadastrados no sistema
           </p>
-          <p className="text-sm text-muted-foreground">
-            Seu fuso horário: {clientTimezone}
-          </p>
         </div>
 
         <div className="space-y-6">
@@ -47,10 +35,7 @@ export default async function Home() {
                   </p>
                   <p>
                     <strong>Criado em:</strong>{' '}
-                    {dayjs
-                      .utc(user.createdAt)
-                      .tz(clientTimezone)
-                      .format('DD/MM/YYYY HH:mm:ss')}
+                    <DateFormatter date={user.createdAt} />
                   </p>
                 </div>
 
@@ -66,11 +51,7 @@ export default async function Home() {
                       {user.enrollments.map((enrollment) => (
                         <li key={enrollment.id} className="text-sm">
                           {enrollment.course.title} (Matriculado em:{' '}
-                          {dayjs
-                            .utc(enrollment.enrolledAt)
-                            .tz(clientTimezone)
-                            .format('DD/MM/YYYY HH:mm:ss')}
-                          )
+                          <DateFormatter date={enrollment.enrolledAt} />)
                         </li>
                       ))}
                     </ul>
