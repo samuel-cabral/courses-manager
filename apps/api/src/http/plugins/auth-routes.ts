@@ -5,11 +5,13 @@ import { createCourse } from '../routes/courses/create'
 import { fetchCourses } from '../routes/courses/fetch'
 import { createEnrollment } from '../routes/enrollments/create'
 import { fetchUserEnrollments } from '../routes/enrollments/fetch-by-user'
+import { getProfileRoute } from '../routes/users/get-profile'
 import { getUser } from '../routes/users/get-user'
 
 export async function authRoutes(app: FastifyInstance) {
   app.addHook('onRequest', verifyJwt)
 
+  app.register(getProfileRoute)
   app.register(getUser)
   app.register(createCourse)
   app.register(fetchCourses)
