@@ -2,72 +2,72 @@ import 'dayjs/locale/pt-br'
 
 import dayjs from 'dayjs'
 
-import { Course, getCourses } from '@/http/get-courses'
-import { Enrollment, getEnrollments } from '@/http/get-enrollments'
-import { getProfile } from '@/http/get-profile'
+import { getEnrollments } from '@/http/get-enrollments'
+import { getUsers } from '@/http/get-users'
 
 dayjs.locale('pt-br')
 
 export default async function Home() {
-  const { user } = await getProfile()
-  const { courses } = await getCourses()
-  const { enrollments } = await getEnrollments(user.id)
+  const { users } = await getUsers()
+
+  const usersWithEnrollments = await Promise.all(
+    users.map(async (user) => {
+      const { enrollments } = await getEnrollments(user.id)
+      return { ...user, enrollments }
+    }),
+  )
 
   return (
     <div className="py-4">
       <main className="space-y-8">
-        <div className="space-y-1">
-          <h2 className="text-2xl font-bold">Perfil</h2>
-
-          <div className="rounded-lg border p-4">
-            <div className="space-y-2">
-              <p>
-                <strong>Nome:</strong> {user.name}
-              </p>
-              <p>
-                <strong>E-mail:</strong> {user.email}
-              </p>
-              <p>
-                <strong>Criado em:</strong>{' '}
-                {dayjs(user.createdAt).format('DD/MM/YYYY HH:mm:ss')}
-              </p>
-            </div>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold">Usuários</h1>
+          <p className="text-muted-foreground text-sm">
+            Lista de usuários cadastrados no sistema
+          </p>
         </div>
 
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Cursos</h2>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {courses.map((course: Course) => {
-              const enrollment = enrollments.find(
-                (enrollment: Enrollment) => enrollment.courseId === course.id,
-              )
-
-              return (
-                <div key={course.id} className="rounded-lg border p-4">
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-medium">{course.title}</h3>
-                    <p className="text-muted-foreground text-sm">
-                      {course.description}
-                    </p>
-                    <p className="text-sm">
-                      <strong>Carga horária:</strong> {course.hours}h
-                    </p>
-
-                    {enrollment && (
-                      <p className="text-muted-foreground text-sm">
-                        <strong>Matriculado em:</strong>{' '}
-                        {dayjs(enrollment.enrolledAt).format(
-                          'DD/MM/YYYY HH:mm:ss',
-                        )}
-                      </p>
-                    )}
-                  </div>
+        <div className="space-y-6">
+          {usersWithEnrollments.map((user) => (
+            <div key={user.id} className="rounded-lg border p-6">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <p>
+                    <strong>Usuário:</strong> {user.name}
+                  </p>
+                  <p>
+                    <strong>E-mail:</strong> {user.email}
+                  </p>
+                  <p>
+                    <strong>Criado em:</strong>{' '}
+                    {dayjs(user.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                  </p>
                 </div>
-              )
-            })}
-          </div>
+
+                <div className="space-y-2">
+                  <strong>Cursos:</strong>
+
+                  {user.enrollments.length === 0 ? (
+                    <p className="text-muted-foreground text-sm">
+                      Nenhum curso matriculado
+                    </p>
+                  ) : (
+                    <ul className="list-inside list-disc space-y-1">
+                      {user.enrollments.map((enrollment) => (
+                        <li key={enrollment.id} className="text-sm">
+                          {enrollment.course.title} (Matriculado em:{' '}
+                          {dayjs(enrollment.enrolledAt).format(
+                            'DD/MM/YYYY HH:mm:ss',
+                          )}
+                          )
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </main>
     </div>

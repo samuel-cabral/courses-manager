@@ -1,17 +1,18 @@
-import { redirect } from 'next/navigation'
-
-import { isAuthenticated } from '@/auth/auth'
+import { Header } from '@/components/header'
+import { getProfile } from '@/http/get-profile'
 
 export default async function AppLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
-  const userIsAuthenticated = await isAuthenticated()
+}) {
+  const { user } = await getProfile()
 
-  if (!userIsAuthenticated) {
-    redirect('/auth/sign-in')
-  }
+  return (
+    <>
+      <Header userEmail={user.email} />
 
-  return <>{children}</>
+      <div className="mx-auto max-w-[1200px] px-4">{children}</div>
+    </>
+  )
 }
