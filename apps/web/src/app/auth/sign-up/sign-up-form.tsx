@@ -38,7 +38,7 @@ export function SignUpForm() {
           <Label htmlFor="name">Name</Label>
           <Input name="name" id="name" />
           {errors?.name && (
-            <p className="text-destructive text-sm">{errors.name[0]}</p>
+            <p className="text-sm text-destructive">{errors.name[0]}</p>
           )}
         </div>
 
@@ -46,7 +46,7 @@ export function SignUpForm() {
           <Label htmlFor="email">E-mail</Label>
           <Input name="email" type="email" id="email" />
           {errors?.email && (
-            <p className="text-destructive text-sm">{errors.email[0]}</p>
+            <p className="text-sm text-destructive">{errors.email[0]}</p>
           )}
         </div>
 
@@ -54,7 +54,7 @@ export function SignUpForm() {
           <Label htmlFor="password">Password</Label>
           <Input name="password" type="password" id="password" />
           {errors?.password && (
-            <p className="text-destructive text-sm">{errors.password[0]}</p>
+            <p className="text-sm text-destructive">{errors.password[0]}</p>
           )}
         </div>
 
@@ -66,7 +66,7 @@ export function SignUpForm() {
             id="password_confirmation"
           />
           {errors?.password_confirmation && (
-            <p className="text-destructive text-sm">
+            <p className="text-sm text-destructive">
               {errors.password_confirmation[0]}
             </p>
           )}
