@@ -1,10 +1,15 @@
 import 'dayjs/locale/pt-br'
 
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 
 import { getEnrollments } from '@/http/get-enrollments'
 import { getUsers } from '@/http/get-users'
 
+// Configurar plugins do dayjs
+dayjs.extend(utc)
+dayjs.extend(timezone)
 dayjs.locale('pt-br')
 
 export default async function Home() {
@@ -40,7 +45,10 @@ export default async function Home() {
                   </p>
                   <p>
                     <strong>Criado em:</strong>{' '}
-                    {dayjs(user.createdAt).format('DD/MM/YYYY HH:mm:ss')}
+                    {dayjs
+                      .utc(user.createdAt)
+                      .local()
+                      .format('DD/MM/YYYY HH:mm:ss')}
                   </p>
                 </div>
 
@@ -56,9 +64,10 @@ export default async function Home() {
                       {user.enrollments.map((enrollment) => (
                         <li key={enrollment.id} className="text-sm">
                           {enrollment.course.title} (Matriculado em:{' '}
-                          {dayjs(enrollment.enrolledAt).format(
-                            'DD/MM/YYYY HH:mm:ss',
-                          )}
+                          {dayjs
+                            .utc(enrollment.enrolledAt)
+                            .local()
+                            .format('DD/MM/YYYY HH:mm:ss')}
                           )
                         </li>
                       ))}
