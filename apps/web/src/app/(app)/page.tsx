@@ -7,13 +7,12 @@ import utc from 'dayjs/plugin/utc'
 import { getEnrollments } from '@/http/get-enrollments'
 import { getUsers } from '@/http/get-users'
 
-// Configurar plugins do dayjs
 dayjs.extend(utc)
 dayjs.extend(timezone)
-dayjs.locale('pt-br')
 
 export default async function Home() {
   const { users } = await getUsers()
+  const clientTimezone = dayjs.tz.guess()
 
   const usersWithEnrollments = await Promise.all(
     users.map(async (user) => {
@@ -29,6 +28,9 @@ export default async function Home() {
           <h1 className="text-3xl font-bold">Usuários</h1>
           <p className="text-sm text-muted-foreground">
             Lista de usuários cadastrados no sistema
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Seu fuso horário: {clientTimezone}
           </p>
         </div>
 
@@ -47,7 +49,7 @@ export default async function Home() {
                     <strong>Criado em:</strong>{' '}
                     {dayjs
                       .utc(user.createdAt)
-                      .local()
+                      .tz(clientTimezone)
                       .format('DD/MM/YYYY HH:mm:ss')}
                   </p>
                 </div>
@@ -66,7 +68,7 @@ export default async function Home() {
                           {enrollment.course.title} (Matriculado em:{' '}
                           {dayjs
                             .utc(enrollment.enrolledAt)
-                            .local()
+                            .tz(clientTimezone)
                             .format('DD/MM/YYYY HH:mm:ss')}
                           )
                         </li>
