@@ -30,6 +30,7 @@
    - Provide the required environment variables:
      - `DATABASE_URL`: The URL of the PostgreSQL database.
      - `JWT_SECRET`: The secret key for JWT authentication.
+     - `NEXT_PUBLIC_API_URL`: The URL of the API.
 
 5. Start the PostgreSQL database using Docker:
    ```bash
