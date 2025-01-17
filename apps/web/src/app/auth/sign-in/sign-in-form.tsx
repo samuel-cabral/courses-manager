@@ -39,7 +39,7 @@ export function SignInForm() {
           <Label htmlFor="email">Email</Label>
           <Input type="email" name="email" id="email" />
           {errors?.email && (
-            <p className="text-destructive text-sm">{errors.email[0]}</p>
+            <p className="text-sm text-destructive">{errors.email[0]}</p>
           )}
         </div>
 
@@ -47,7 +47,7 @@ export function SignInForm() {
           <Label htmlFor="password">Password</Label>
           <Input type="password" name="password" id="password" />
           {errors?.password && (
-            <p className="text-destructive text-sm">{errors.password[0]}</p>
+            <p className="text-sm text-destructive">{errors.password[0]}</p>
           )}
         </div>
 

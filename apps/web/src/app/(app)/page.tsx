@@ -22,7 +22,7 @@ export default async function Home() {
       <main className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold">Usuários</h1>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             Lista de usuários cadastrados no sistema
           </p>
         </div>
@@ -48,7 +48,7 @@ export default async function Home() {
                   <strong>Cursos:</strong>
 
                   {user.enrollments.length === 0 ? (
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-sm text-muted-foreground">
                       Nenhum curso matriculado
                     </p>
                   ) : (
