@@ -1,4 +1,3 @@
-// src/permissions.ts
 import { AbilityBuilder } from '@casl/ability'
 
 import { AppAbility } from '.'
@@ -11,12 +10,11 @@ type PermissionsByRole = (
 ) => void
 
 export const permissions: Record<Role, PermissionsByRole> = {
-  ADMIN(user, { can }) {
+  ADMIN(_, { can }) {
     can('manage', 'all')
   },
   STUDENT(user, { can }) {
-    can(['get', 'create'], 'User', { id: user.id })
     can(['get'], 'Course')
-    can(['get', 'create'], 'Enrollment', { userId: user.id })
+    can(['get', 'create'], 'Enrollment', { userId: { $eq: user.id } })
   },
 }

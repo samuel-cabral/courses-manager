@@ -1,3 +1,4 @@
+import { env } from '@cm/env'
 import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
@@ -44,18 +45,16 @@ app.register(fastifySwaggerUi, {
 })
 
 app.register(fastifyJwt, {
-  secret: 'my-jwt-secret',
+  secret: env.JWT_SECRET,
 })
 
 app.register(fastifyCors)
 
-// Rotas públicas
 app.register(createUser)
 app.register(authenticateWithPassword)
 
-// Rotas autenticadas
 app.register(authRoutes)
 
-app.listen({ port: 3333 }).then(() => {
-  console.log('HTTP server running!')
+app.listen({ port: env.SERVER_PORT }).then(() => {
+  console.log('🚀 HTTP Server Running!')
 })

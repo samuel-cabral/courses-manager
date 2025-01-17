@@ -2,15 +2,90 @@
 
 ## Overview
 
-This monorepo is a course management system. It is built with the following technologies:
+This monorepo is a course management system built with the following technologies:
 
-## Frontend
-
+### Frontend
 - Next.js
 - Tailwind CSS
 - Shadcn UI
 - TypeScript
 - React
+
+### API
+- Node.js
+- Prisma
+- Zod
+- Postgres
+- JWT Authentication
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v22 or higher)
+- pnpm package manager
+- Docker
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/samuel-cabral/courses-manager.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd courses-manager
+   ```
+
+3. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+4. Set up the environment variables:
+   - Create a `.env` file in the `apps/api` directory.
+   - Provide the required environment variables:
+     - `DATABASE_URL`: The URL of the PostgreSQL database.
+     - `JWT_SECRET`: The secret key for JWT authentication.
+
+5. Start the PostgreSQL database using Docker:
+   ```bash
+   docker-compose up -d
+   ```
+
+6. Run the database migrations:
+   ```bash
+   pnpm prisma migrate dev
+   ```
+
+7. Seed the database (optional):
+   ```bash
+   pnpm prisma db seed
+   ```
+
+### Development
+
+To start the development server, run the following command:
+
+```bash
+pnpm dev
+```
+
+## Production
+
+To build the production version, run the following command:
+
+```bash
+pnpm build
+```
+
+## Testing
+
+To run the tests, run the following command:
+
+```bash
+pnpm test
+```
 
 ## API
 
@@ -43,35 +118,3 @@ The API is built with the following technologies:
 ### Authentication
 
 - JWT
-
-## Getting Started
-
-To get started, run the following command:
-
-```bash
-pnpm install
-```
-
-## Development
-
-To start the development server, run the following command:
-
-```bash
-pnpm dev
-```
-
-## Production
-
-To build the production version, run the following command:
-
-```bash
-pnpm build
-```
-
-## Testing
-
-To run the tests, run the following command:
-
-```bash
-pnpm test
-```
